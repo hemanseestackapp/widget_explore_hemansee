@@ -1,0 +1,36 @@
+name: widget_explore_hemansee
+description: Flutter project to explore dart widgets.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0-427.0.dev <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  firebase_core: 2.24.2
+  google_sign_in:
+  firebase_auth: 4.16.0
+  flutter_otp_text_field: 1.1.1
+  email_validator:
+  cherry_toast:
+  easy_loading_button:
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+     - myassets/img/
