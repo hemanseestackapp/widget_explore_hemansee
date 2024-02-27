@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../mobauth/mob_auth.dart';
+import 'package:widget_explore_hemansee/screen/mobauth/mob_auth.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp( {super.key});
@@ -20,7 +19,7 @@ class _SignUpState extends State<SignUp> {
             width: double.infinity,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40),bottomRight: Radius.circular(40)),
-                color: Colors.deepPurple),
+                color: Colors.deepPurple,),
             child: Column(
                 children: [Stack(
                   children: [
@@ -30,22 +29,22 @@ class _SignUpState extends State<SignUp> {
                         width: 160,
                         // color: Colors.white,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),color: Colors.white
+                            borderRadius: BorderRadius.circular(80),color: Colors.white,
                         ),
                         child: Container(
                           margin: const EdgeInsets.all(25),
-                          child: const Image(image: AssetImage("myassets/img/user1.jpg"),fit: BoxFit.fill,),
-                        )
+                          child: const Image(image: AssetImage('myassets/img/user1.jpg'),fit: BoxFit.fill,),
+                        ),
                     ),
                   ],
                 ),
                   Container(
                     alignment: Alignment.center,
-                    child: const Text( "Create An Account",
+                    child: const Text( 'Create An Account',
                       style: TextStyle(
-                          color: Colors.white, fontSize: 25),),
+                          color: Colors.white, fontSize: 25,),),
                   )
-                ]
+                ],
             ),
           ),
         ),
@@ -57,26 +56,26 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 children: [
                   const SizedBox(height: 40,),
-                  const Text("You Are Login....!",style: TextStyle(fontSize: 20,color: Colors.deepPurple),),
+                  const Text('You Are Login....!',style: TextStyle(fontSize: 20,color: Colors.deepPurple),),
                   // Text("${widget.a?.email}",style: const TextStyle(fontSize: 20,color: Colors.deepPurple),),
                   const SizedBox(height: 60,),
                   InkWell(onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
                             return const MobAuth();
-                          },));
+                          },),);
                   },
                     child: Container(
                       height: 40,
                       width: 140,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(40),color: Colors.deepPurple),
-                      child: const Text("Sign Out",style: TextStyle(color: Colors.white,fontSize: 15),),
+                      child: const Text('Sign Out',style: TextStyle(color: Colors.white,fontSize: 15),),
                     ),
                   ),
                 ],
               ),
-            )),
-      ]),
+            ),),
+      ],),
     );
   }
 }

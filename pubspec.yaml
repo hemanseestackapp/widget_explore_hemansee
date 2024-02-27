@@ -20,6 +20,10 @@ dependencies:
   email_validator:
   cherry_toast:
   easy_loading_button:
+  cloud_firestore:
+  image_picker:
+  firebase_storage:
+  cached_network_image:
 
 
 dev_dependencies:

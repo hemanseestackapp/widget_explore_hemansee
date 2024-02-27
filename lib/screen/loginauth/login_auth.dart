@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_explore_hemansee/screen/logoutpage/log_outpage.dart';
 
-import '../../service/auth_service.dart';
+import 'package:widget_explore_hemansee/service/auth_service.dart';
 
 void main()
 {
@@ -36,9 +36,9 @@ class _LoginAuthState extends State<LoginAuth> {
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40)),
-                    color: Colors.deepPurple),
-              )),
+                        bottomRight: Radius.circular(40),),
+                    color: Colors.deepPurple,),
+              ),),
           Expanded(
               flex: 4,
               child: Column(
@@ -47,7 +47,7 @@ class _LoginAuthState extends State<LoginAuth> {
                     height: 20,
                   ),
                   const Text(
-                    "Create An Account",
+                    'Create An Account',
                     style: TextStyle(color: Colors.deepPurple, fontSize: 20),
                   ),
                   const SizedBox(
@@ -61,7 +61,7 @@ class _LoginAuthState extends State<LoginAuth> {
                           prefixIcon: Icon(
                             Icons.person,
                             color: Colors.deepPurple,
-                          )),
+                          ),),
                       controller: emailTextField,
                     ),
                   ),
@@ -76,7 +76,7 @@ class _LoginAuthState extends State<LoginAuth> {
                           prefixIcon: Icon(
                             Icons.email,
                             color: Colors.deepPurple,
-                          )),
+                          ),),
                       controller: passwordTextField,
                     ),
                   ),
@@ -87,10 +87,10 @@ class _LoginAuthState extends State<LoginAuth> {
                     User? a = await AuthService.instance.signInWithGoogle();
                     if (a != null) {
                       if (kDebugMode) {
-                        print("${a.displayName}");
+                        print('${a.displayName}');
                       }
                       if (kDebugMode) {
-                        print("${a.email}");
+                        print('${a.email}');
                       }
                     }
                     // ignore: use_build_context_synchronously
@@ -98,29 +98,29 @@ class _LoginAuthState extends State<LoginAuth> {
                       builder: (context) {
                         return SecPage(a);
                       },
-                    ));
+                    ),);
                   },
                     child: Container(
                       height: 60,
                       width: 260,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(40),color: Colors.deepPurple),
-                      child: const Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 15),),
+                      child: const Text('Sign Up',style: TextStyle(color: Colors.white,fontSize: 15),),
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  const Text(("----- Or sign up with -----"),style: TextStyle(color: Colors.deepPurple,fontSize: 15),),
+                  const Text(('----- Or sign up with -----'),style: TextStyle(color: Colors.deepPurple,fontSize: 15),),
 
                 ],
-              )),
+              ),),
           Expanded(
               child: Container(
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40)),
-                    color: Colors.deepPurple),
-              )),
+                        topRight: Radius.circular(40),),
+                    color: Colors.deepPurple,),
+              ),),
         ],
       ),
     );

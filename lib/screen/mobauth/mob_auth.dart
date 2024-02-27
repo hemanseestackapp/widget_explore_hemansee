@@ -8,9 +8,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../service/auth_service.dart';
-import '../logoutpage/log_outpage.dart';
-import '../verifypage/verify_page.dart';
+import 'package:widget_explore_hemansee/screen/logoutpage/log_outpage.dart';
+import 'package:widget_explore_hemansee/screen/verifypage/verify_page.dart';
+import 'package:widget_explore_hemansee/service/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,7 @@ Future<void> main() async {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MobAuth(),
-  ));
+  ),);
 }
 
 class MobAuth extends StatefulWidget {
@@ -47,6 +47,7 @@ class _MobAuthState extends State<MobAuth> {
   int sec = -1;
   bool isLoading = false;
 
+
   Future<void> fetchData() async {
     setState(() {
       isLoading = true;
@@ -72,9 +73,9 @@ class _MobAuthState extends State<MobAuth> {
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40)),
-                    color: Colors.deepPurple),
-              )),
+                        bottomRight: Radius.circular(40),),
+                    color: Colors.deepPurple,),
+              ),),
           Expanded(
               flex: 7,
               child: Column(
@@ -83,7 +84,7 @@ class _MobAuthState extends State<MobAuth> {
                     height: 20,
                   ),
                   const Text(
-                    "Create An Account",
+                    'Create An Account',
                     style: TextStyle(color: Colors.deepPurple, fontSize: 20),
                   ),
                   const SizedBox(
@@ -106,7 +107,7 @@ class _MobAuthState extends State<MobAuth> {
                           prefixIcon: const Icon(
                             Icons.contact_mail_rounded,
                             color: Colors.deepPurple,
-                          )),
+                          ),),
                       controller: otpTextField,
                     ),
                   ),
@@ -123,7 +124,7 @@ class _MobAuthState extends State<MobAuth> {
                           prefixIcon: const Icon(
                             Icons.person,
                             color: Colors.deepPurple,
-                          )),
+                          ),),
                       controller: emailTextField,
                     ),
                   ),
@@ -138,7 +139,7 @@ class _MobAuthState extends State<MobAuth> {
                           prefixIcon: Icon(
                             Icons.email,
                             color: Colors.deepPurple,
-                          )),
+                          ),),
                       controller: passwordTextField,
                     ),
                   ),
@@ -153,7 +154,7 @@ class _MobAuthState extends State<MobAuth> {
                           String contact = otpTextField.text;
                           String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
                           RegExp regExp = RegExp(pattern);
-                          if (contact == "" || !regExp.hasMatch(contact)) {
+                          if (contact == '' || !regExp.hasMatch(contact)) {
                             contactValidation = true;
                           } else {
                             contactValidation = false;
@@ -161,11 +162,11 @@ class _MobAuthState extends State<MobAuth> {
                           setState(() {});
                           if (contactValidation == false) {
                             CherryToast.info(
-                              title: const Text("Your OTP Is Send.....!",
-                                  style: TextStyle(color: Colors.black)),
+                              title: const Text('Your OTP Is Send.....!',
+                                  style: TextStyle(color: Colors.black),),
                               actionHandler: () {
                                 if (kDebugMode) {
-                                  print("Action button pressed");
+                                  print('Action button pressed');
                                 }
                               },
                               animationType: AnimationType.fromTop,
@@ -181,9 +182,9 @@ class _MobAuthState extends State<MobAuth> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
-                              color: Colors.deepPurple),
+                              color: Colors.deepPurple,),
                           child: const Text(
-                            "Send OTP",
+                            'Send OTP',
                             style: TextStyle(color: Colors.white, fontSize: 15),
                           ),
                         ),
@@ -191,11 +192,11 @@ class _MobAuthState extends State<MobAuth> {
                       InkWell(
                         onTap: () async {
                           AuthService.instance.email(
-                              emailTextField.text, passwordTextField.text);
-                          log("email=${emailTextField.text}");
+                              emailTextField.text, passwordTextField.text,);
+                          log('email=${emailTextField.text}');
 
                           String email = emailTextField.text;
-                          if (email.trim() == "" ||
+                          if (email.trim() == '' ||
                               !EmailValidator.validate(email.trim())) {
                             emailValidation = true;
                           } else {
@@ -204,7 +205,7 @@ class _MobAuthState extends State<MobAuth> {
                               builder: (context) {
                                 return const SignUp();
                               },
-                            ));
+                            ),);
                           }
                           setState(() {});
                         },
@@ -214,9 +215,9 @@ class _MobAuthState extends State<MobAuth> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
-                              color: Colors.deepPurple),
+                              color: Colors.deepPurple,),
                           child: const Text(
-                            "Sign Up",
+                            'Sign Up',
                             style: TextStyle(color: Colors.white, fontSize: 15),
                           ),
                         ),
@@ -231,10 +232,10 @@ class _MobAuthState extends State<MobAuth> {
                       User? a = await AuthService.instance.signInWithGoogle();
                       if (a != null) {
                         if (kDebugMode) {
-                          print("${a.displayName}");
+                          print('${a.displayName}');
                         }
                         if (kDebugMode) {
-                          print("${a.email}");
+                          print('${a.email}');
                         }
                       }
                       // ignore: use_build_context_synchronously
@@ -242,7 +243,7 @@ class _MobAuthState extends State<MobAuth> {
                         builder: (context) {
                           return SecPage(a);
                         },
-                      ));
+                      ),);
                     },
                     child: Container(
                       height: 40,
@@ -250,9 +251,9 @@ class _MobAuthState extends State<MobAuth> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
-                          color: Colors.deepPurple),
+                          color: Colors.deepPurple,),
                       child: const Text(
-                        "Sign with google",
+                        'Sign with google',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     ),
@@ -266,23 +267,23 @@ class _MobAuthState extends State<MobAuth> {
                             decoration: InputDecoration(
                                 suffixIcon: IconButton(
                               onPressed: () {
-                                log("Your otp is verify...");
+                                log('Your otp is verify...');
                               },
                               icon: const Icon(Icons.add_circle),
                               color: Colors.deepPurple,
-                            )),
-                          ))
-                      : const Text(""),
+                            ),),
+                          ),)
+                      : const Text(''),
                 ],
-              )),
+              ),),
           Expanded(
               child: Container(
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40)),
-                color: Colors.deepPurple),
-          )),
+                    topRight: Radius.circular(40),),
+                color: Colors.deepPurple,),
+          ),),
         ],
       ),
     );
