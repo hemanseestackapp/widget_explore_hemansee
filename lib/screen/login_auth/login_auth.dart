@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_explore_hemansee/screen/logoutpage/log_outpage.dart';
+import 'package:widget_explore_hemansee/screen/logout_page/log_outpage.dart';
 
 import 'package:widget_explore_hemansee/service/auth_service.dart';
 

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widget_explore_hemansee/screen/loginpages/login_pages.dart';
+import 'package:widget_explore_hemansee/screen/login_pages/login_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

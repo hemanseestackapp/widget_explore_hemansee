@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:widget_explore_hemansee/screen/loginpages/login_pages.dart';
-import 'package:widget_explore_hemansee/screen/particular_data/particular_data.dart';
-import 'package:widget_explore_hemansee/screen/profilepage/profile_page.dart';
-import 'package:widget_explore_hemansee/service/userservice/user_service.dart';
+import 'package:widget_explore_hemansee/screen/login_pages/login_pages.dart';
+import 'package:widget_explore_hemansee/screen/profile_page/profile_page.dart';
+import 'package:widget_explore_hemansee/screen/user_detail//user_detail.dart';
+import 'package:widget_explore_hemansee/service/user_service/user_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -118,7 +118,6 @@ class _HomePageState extends State<HomePage> {
         ),
         body: (currentUser['userType'] == 'Admin')
             ?
-            // (AuthService.instance.userType)?
             StreamBuilder(
                 stream:
                     FirebaseFirestore.instance.collection('users').snapshots(),
@@ -143,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return ParticularData(user);
+                                        return UserDetail(user);
                                       },
                                     ),
                                   );
@@ -155,13 +154,18 @@ class _HomePageState extends State<HomePage> {
                                       AssetImage('myassets/img/user1.jpg'),
                                 ),
                               )
-                            : Container(),
+                            :null,
+                        // Container(
+                        //   height: 0,
+                        //   width: 0,
+                        //   color: Colors.red,
+                        // ),
                       );
                     }).toList(),
                   );
                 },
               )
-            : const Text(''),
+            : Container(),
       ),
       onWillPop: () {
         showDialog(

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:widget_explore_hemansee/screen/mobauth/mob_auth.dart';
+import 'package:widget_explore_hemansee/screen/mobile_auth/mob_auth.dart';
 // ignore: must_be_immutable
 class SecPage extends StatefulWidget {
   User? a;

@@ -3,12 +3,12 @@ import 'package:cherry_toast/resources/arrays.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_explore_hemansee/screen/contactpage/contact_page.dart';
-import 'package:widget_explore_hemansee/screen/forgetpassword/forget_password.dart';
-import 'package:widget_explore_hemansee/screen/homepage/home_page.dart';
+import 'package:widget_explore_hemansee/screen/forget_password/forget_password.dart';
+import 'package:widget_explore_hemansee/screen/home_page/home_page.dart';
+import 'package:widget_explore_hemansee/screen/signup_page/signup_page.dart';
 import 'package:widget_explore_hemansee/service/auth_service.dart';
-import 'package:widget_explore_hemansee/service/userservice/user_service.dart';
-import 'package:widget_explore_hemansee/service/usersmodal/user_modal.dart';
+import 'package:widget_explore_hemansee/service/user_service/user_service.dart';
+import 'package:widget_explore_hemansee/service/users_modal/user_modal.dart';
 
 class LoginPages extends StatefulWidget {
   const LoginPages({super.key});
@@ -28,6 +28,7 @@ class _LoginPagesState extends State<LoginPages> {
   bool google = false;
   bool passwordMatch = false;
   bool isLoading = false;
+  bool toastShow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -235,6 +236,7 @@ class _LoginPagesState extends State<LoginPages> {
                                     actionHandler: () {},
                                     animationType: AnimationType.fromTop,
                                   ).show(context);
+
                                 },
                               );
                             }
@@ -331,7 +333,7 @@ class _LoginPagesState extends State<LoginPages> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return const ContactPage();
+                                  return const SignUpPage();
                                 },
                               ),
                             );

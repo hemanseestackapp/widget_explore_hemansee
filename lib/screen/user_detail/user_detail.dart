@@ -3,18 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:widget_explore_hemansee/service/userservice/user_service.dart';
+import 'package:widget_explore_hemansee/service/user_service/user_service.dart';
 
-class ParticularData extends StatefulWidget {
+class UserDetail extends StatefulWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> user;
-
-  const ParticularData(this.user, {super.key});
+  const UserDetail(this.user, {super.key});
 
   @override
-  State<ParticularData> createState() => _ParticularDataState();
+  State<UserDetail> createState() => _UserDetailState();
 }
 
-class _ParticularDataState extends State<ParticularData> {
+class _UserDetailState extends State<UserDetail> {
   Map<String, dynamic> currentUser = {};
 
   dynamic getDataUser() async {

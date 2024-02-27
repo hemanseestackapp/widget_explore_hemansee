@@ -1,25 +1,24 @@
 import 'dart:developer' as developer;
 import 'dart:math';
-
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widget_explore_hemansee/screen/homepage/home_page.dart';
+import 'package:widget_explore_hemansee/screen/home_page/home_page.dart';
 import 'package:widget_explore_hemansee/service/auth_service.dart';
-import 'package:widget_explore_hemansee/service/userservice/user_service.dart';
-import 'package:widget_explore_hemansee/service/usersmodal/user_modal.dart';
+import 'package:widget_explore_hemansee/service/user_service/user_service.dart';
+import 'package:widget_explore_hemansee/service/users_modal/user_modal.dart';
 
-class ContactPage extends StatefulWidget {
-  const ContactPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<ContactPage> createState() => _ContactPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _ContactPageState extends State<ContactPage> {
+class _SignUpPageState extends State<SignUpPage> {
   String gender = 'Female';
   String item = 'UserType';
   bool username = false;

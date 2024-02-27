@@ -7,11 +7,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:widget_explore_hemansee/screen/homepage/home_page.dart';
+import 'package:widget_explore_hemansee/screen/home_page/home_page.dart';
 
 class AuthService {
   AuthService._privateConstructore();
-
   static final AuthService instance = AuthService._privateConstructore();
 
   String verificationIid = '';
@@ -230,6 +229,7 @@ class AuthService {
         actionHandler: () {},
         animationType: AnimationType.fromTop,
       ).show(context);
+
       passwordMatch = false;
       // emailMatch=false;
       log('Failed to log in: $e');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widget_explore_hemansee/screen/mobauth/mob_auth.dart';
+import 'package:widget_explore_hemansee/screen/mobile_auth/mob_auth.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp( {super.key});

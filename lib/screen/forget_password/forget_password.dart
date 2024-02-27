@@ -1,7 +1,7 @@
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_explore_hemansee/screen/loginpages/login_pages.dart';
+import 'package:widget_explore_hemansee/screen/login_pages/login_pages.dart';
 import 'package:widget_explore_hemansee/service/auth_service.dart';
 
 class PasswordScreen extends StatefulWidget {

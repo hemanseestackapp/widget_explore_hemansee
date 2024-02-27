@@ -8,8 +8,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widget_explore_hemansee/screen/logoutpage/log_outpage.dart';
-import 'package:widget_explore_hemansee/screen/verifypage/verify_page.dart';
+import 'package:widget_explore_hemansee/screen/logout_page/log_outpage.dart';
+import 'package:widget_explore_hemansee/screen/verify_page/verify_page.dart';
 import 'package:widget_explore_hemansee/service/auth_service.dart';
 
 Future<void> main() async {
