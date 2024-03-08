@@ -7,10 +7,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:widget_explore_hemansee/screen/dashboard_page/dashboard_page.dart';
 import 'package:widget_explore_hemansee/screen/home_page/home_page.dart';
 
 class AuthService {
   AuthService._privateConstructore();
+
   static final AuthService instance = AuthService._privateConstructore();
 
   String verificationIid = '';
@@ -59,7 +61,7 @@ class AuthService {
         },
         codeSent: (String verificationId, int? resendToken) {
           verificationIid = verificationId;
-          log('hyy $verificationIid');
+          log('verification id =  $verificationIid');
           verifyOtp = true;
         },
         codeAutoRetrievalTimeout: (String verificationId) {
@@ -105,7 +107,7 @@ class AuthService {
         log('The account already exists for that email.');
       }
     } on SocketException catch (e) {
-      log('$e');
+      log('This is a SocketException in email ----- ${e.message}');
     }
     return null;
   }
@@ -143,12 +145,14 @@ class AuthService {
         log('The account already exists for that email.');
       }
     } on SocketException catch (e) {
-      log('$e');
+      log('This is a SocketException in sendPasswordResetEmail ----- ${e.message}');
     }
   }
 
   Future<void> fetchDataBasedOnEmail(
-      String userEmail, String userPassword,) async {
+    String userEmail,
+    String userPassword,
+  ) async {
     try {
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('users');
@@ -167,12 +171,17 @@ class AuthService {
         log('No matching documents.');
       }
     } on FirebaseAuthException catch (e) {
-      log('Error fetching data: $e');
+      log('This is a FirebaseAuthException in fetchDataBasedOnEmail ----- ${e.message}');
+    } on SocketException catch (e) {
+      log('This is a SocketException in fetchDataBasedOnEmail ----- ${e.message}');
     }
   }
 
   Future<bool?> loginUser(
-      String email, String password, BuildContext context,) async {
+    String email,
+    String password,
+    BuildContext context,
+  ) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -193,6 +202,7 @@ class AuthService {
         },
       );
 
+
       String uid = userCredential.user!.uid;
       var userSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
@@ -205,7 +215,7 @@ class AuthService {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const HomePage();
+                  return const DashboardPage();
                 },
               ),
             );
@@ -214,7 +224,6 @@ class AuthService {
       } else {
         userType = false;
       }
-
       if (kDebugMode) {
         print(userCredential);
       }
@@ -228,11 +237,12 @@ class AuthService {
         ),
         actionHandler: () {},
         animationType: AnimationType.fromTop,
+      // ignore: use_build_context_synchronously
       ).show(context);
-
       passwordMatch = false;
-      // emailMatch=false;
-      log('Failed to log in: $e');
+      log('This is a FirebaseAuthException in loginUser ----- ${e.message}');
+    } on SocketException catch (e) {
+      log('This is a SocketException in loginUser ----- ${e.message}');
     }
     return null;
   }

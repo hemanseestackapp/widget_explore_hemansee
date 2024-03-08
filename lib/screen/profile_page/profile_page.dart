@@ -1,10 +1,12 @@
-import 'dart:developer';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:widget_explore_hemansee/service/user_service/user_service.dart';
+import 'package:widget_explore_hemansee/common/widget/common_text_field.dart';
+import 'package:widget_explore_hemansee/screen/archivepost_page/archievpost_page.dart';
+import 'package:widget_explore_hemansee/service/user_service.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -19,18 +21,17 @@ class _ProfilePageState extends State<ProfilePage> {
   dynamic getDataUser() async {
     DocumentSnapshot? getUser = await UserService.instance
         .getCurrentDataUser(FirebaseAuth.instance.currentUser!.uid);
+    setState(() {});
     if (getUser != null) {
       currentUser = getUser.data() as Map<String, dynamic>;
+      setState(() {});
     }
-    setState(() {});
   }
 
-  bool images = false;
-
   final ImagePicker picker = ImagePicker();
-
   XFile? image;
   bool imagePicker = false;
+  bool images = false;
 
   String uId = FirebaseAuth.instance.currentUser!.uid;
   String? imgPath;
@@ -50,248 +51,244 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.orange.shade100,
+        backgroundColor: Colors.deepPurple,
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: Colors.white),
         ),
-      ),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 180,
-                  width: double.infinity,
-                  color: Colors.orange.shade100,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 155, 0, 0),
-                child: Divider(
-                  // color: Colors.green,
-                  height: 50,
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
-                  child: SizedBox(
-                    height: 120,
-                    width: 120,
-                    // color: Colors.blueGrey,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(60)),
-                      child: (imagePicker)
-                          ? (image != null)
-                              ? Image.file(
-                                  File(image!.path),
-                                  fit: BoxFit.cover,
-                                )
-                              : null
-                          : const Image(
-                              image: AssetImage('myassets/img/user1.jpg'),
-                              fit: BoxFit.cover,
-                            ),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 40,
-                width: 40,
-                margin: const EdgeInsets.fromLTRB(207, 205, 20, 0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: IconButton(
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Choose image'),
-                          actions: [
-                            Row(
-                              children: [
-                                TextButton(
-                                  onPressed: () async {
-                                    image = await picker.pickImage(
-                                        source: ImageSource.camera,);
-                                    imagePicker = true;
-                                    log('path = $image');
-                                    File file = File(image!.path);
-                                    Future.delayed(
-                                      const Duration(microseconds: 1),
-                                      () {
-                                        Navigator.pop(context);
-                                      },
-                                    );
-                                    UserService.instance.imageRef(file, uId);
-                                    setState(() {});
-                                  },
-                                  child: const Text('Camera'),
-                                ),
-                                TextButton(
-                                  onPressed: () async {
-                                    image = await picker.pickImage(
-                                        source: ImageSource.gallery,);
-                                    imagePicker = true;
-                                    log('path = $image');
-                                    File file = File(image!.path);
-                                    Future.delayed(
-                                      const Duration(microseconds: 1),
-                                      () {
-                                        Navigator.pop(context);
-                                      },
-                                    );
-                                    UserService.instance.imageRef(file, uId);
-                                    setState(() {});
-                                  },
-                                  child: const Text('Gallery'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    setState(() {});
-                  },
-                  icon: const Icon(Icons.camera_alt),
-                ),
-              )
-            ],
-          ),
-          Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '${currentUser['firstName']}',
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: Colors.red,
-                    ),
-                  ),
-                  controller: t1,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '${currentUser['lastName']}',
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: Colors.red,
-                    ),
-                  ),
-                  controller: t2,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '${currentUser['mobile']}',
-                    prefixIcon: const Icon(
-                      Icons.phone_in_talk_outlined,
-                      color: Colors.red,
-                    ),
-                  ),
-                  controller: t3,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '${currentUser['email']}',
-                    prefixIcon: const Icon(
-                      Icons.mail,
-                      color: Colors.red,
-                    ),
-                  ),
-                  controller: t4,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: () async {
-                  // String? pickedImagePath = await UserService.instance.pickImage();
-                  //
-                  // if (pickedImagePath != null) {
-                  //   setState(() {
-                  //     imgPath = pickedImagePath;
-                  //   });
-                  //
-                  //   String? downloadLink = await UserService.instance.uploadImageToFirebaseStorage(pickedImagePath);
-                  //
-                  //   if (downloadLink != null) {
-                  //     await UserService.instance.updateImageURL(uId, downloadLink);
-                  //   } else {
-                  //     // Handle the case where downloadLink is null (upload failed)
-                  //     print('Error uploading image to Firebase Storage.');
-                  //   }
-                  // } else {
-                  //   // Handle the case where pickedImagePath is null (user canceled image picking)
-                  //   print('Image picking canceled.');
-                  // }
-
-                  String downloadLink =
-                      '$imgPath'; // Replace with the actual download link
-                  UserService.instance.updateImageURL(uId, downloadLink);
-                  imagePicker = true;
-
-                  // String? pickedImagePath = await UserService.instance.pickImage();
-                  // if (pickedImagePath != null) {
-                  //   setState(() {
-                  //     imgPath = pickedImagePath;
-                  //   });
-                  //   String? downloadLink = await UserService.instance.uploadImageToFirebaseStorage(pickedImagePath);
-                  //   await UserService.instance.updateImageURL(uId, downloadLink!);
-                  // }
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //     return const LoginPages();
-                  // },),);
-                },
-                child: Container(
-                  height: 50,
-                  width: 320,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.red,),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Update',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-              )
-            ],
-          )
+        actions: [
+          IconButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const ArchivePostPage();
+            },),);
+          }, icon: const Icon(Icons.archive),color: Colors.white,),
         ],
       ),
+      // ignore: unnecessary_null_comparison
+      body: (currentUser != null)
+          ? Column(
+              children: [
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 120,
+                        width: double.infinity,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 95, 0, 0),
+                      child: Divider(
+                        height: 50,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                        child: SizedBox(
+                          height: 120,
+                          width: 120,
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(60)),
+                            child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(currentUser['uid'])
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Container();
+                                }
+                                if (snapshot.hasError) {
+                                  return const Text(
+                                    'error--------------------',
+                                  );
+                                }
+                                return (currentUser['image'] != null &&
+                                            currentUser['image'] != '' ||
+                                        image != null)
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(80),
+                                        child: (currentUser['image'] != null &&
+                                                currentUser['image'] != '' &&
+                                                !imagePicker)
+                                            ? CachedNetworkImage(
+                                                imageUrl:
+                                                    '${currentUser['image']}',
+                                                fit: BoxFit.cover,
+                                              )
+                                            : (image != null)
+                                                ? Image.file(
+                                                    File(image!.path),
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : const Image(
+                                                    image: AssetImage(
+                                                      'assets/image/user1.jpg',
+                                                    ),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                      )
+                                    : const Image(
+                                        image: AssetImage(
+                                          'assets/image/user1.jpg',
+                                        ),
+                                        fit: BoxFit.cover,
+                                      );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 40,
+                      width: 40,
+                      margin: const EdgeInsets.fromLTRB(207, 140, 20, 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: IconButton(
+                        onPressed: () async {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Choose image'),
+                                actions: [
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                        onPressed: () async {
+                                          image = await picker.pickImage(
+                                            source: ImageSource.camera,
+                                          );
+                                          imagePicker = true;
+                                          File file = File(image!.path);
+                                          Future.delayed(
+                                            const Duration(microseconds: 1),
+                                            () {
+                                              Navigator.pop(context);
+                                            },
+                                          );
+                                          if (image != null) {
+                                            await UserService.instance.imageRef(
+                                              file,
+                                              currentUser['uid'],
+                                            );
+                                            getDataUser();
+                                          }
+
+                                          setState(() {});
+                                        },
+                                        child: const Text('camera'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          image = await picker.pickImage(
+                                            source: ImageSource.gallery,
+                                          );
+                                          imagePicker = true;
+                                          File file = File(image!.path);
+                                          Future.delayed(
+                                            const Duration(microseconds: 1),
+                                            () {
+                                              Navigator.pop(context);
+                                            },
+                                          );
+                                          await UserService.instance.imageRef(
+                                            file,
+                                            currentUser['uid'],
+                                          );
+                                          getDataUser();
+                                          setState(() {});
+                                        },
+                                        child: const Text('Gallery'),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          // setState(() {});
+                        },
+                        icon: const Icon(Icons.camera_alt),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    CommonTextFromField(
+                      hintText: '${currentUser['firstName']}',
+                      prefixIcon: Icons.person,
+                      color: Colors.deepPurple,
+                      readOnly: true,
+                      controller: t1,
+                    ),
+                    CommonTextFromField(
+                      hintText: '${currentUser['lastName']}',
+                      prefixIcon: Icons.person,
+                      color: Colors.deepPurple,
+                      readOnly: true,
+                      controller: t2,
+                    ),
+                    CommonTextFromField(
+                      hintText: '${currentUser['mobile']}',
+                      prefixIcon: Icons.phone_in_talk_outlined,
+                      color: Colors.deepPurple,
+                      readOnly: true,
+                      controller: t3,
+                    ),
+                    CommonTextFromField(
+                      hintText: '${currentUser['email']}',
+                      prefixIcon: Icons.email,
+                      color: Colors.deepPurple,
+                      readOnly: true,
+                      controller: t4,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        String downloadLink =
+                            '$imgPath'; // Replace with the actual download link
+                        UserService.instance.updateImageURL(uId, downloadLink);
+                        imagePicker = true;
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 320,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.deepPurple,
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Update',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
